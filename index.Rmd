@@ -480,12 +480,17 @@ class_stress_plot
 ```{r pcss data, include=FALSE}
 head(pcss)
 
+
 pcss_table <- pcss %>% 
   reactable(
     columns = list(
       `Pre Test` = colDef(name = "Pre-Test"),
-      `Post Test` = colDef(name = "Post-Test")
-    ))
+      `Post Test` = colDef(name = "Post-Test")),
+    pagination = FALSE,
+    highlight = TRUE,
+    bordered = TRUE,
+    height = 600,
+    width = 500)
 
 ```
 
