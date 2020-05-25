@@ -1,0 +1,532 @@
+---
+title: "Proposal Measures"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    social: menu
+    source_code: embed
+    vertical_layout: scroll
+    theme: spacelab
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(rio)
+library(here)
+library(colorblindr)
+library(gghighlight)
+library(forcats)
+library(ggrepel)
+library(gt)
+library(knitr)
+library(kableExtra)
+library(reactable)
+library(plotly)
+
+opts_chunk$set(echo = FALSE,
+               fig.width = 5,
+               fig.height = 6)
+
+theme_set(theme_minimal(base_size = 8))
+
+p1 <- import(here("data", "p1_rm.xlsx"),
+               setclass = "tbl_df") 
+ 
+p2 <- import(here("data", "p2_rm.xlsx"),
+               setclass = "tbl_df") 
+
+p3 <- import(here("data", "p3_rm.xlsx"),
+               setclass = "tbl_df") 
+
+p4 <- import(here("data", "p4_rm.xlsx"),
+               setclass = "tbl_df") 
+
+brief <- import(here("data", "brief_proposal.xlsx"),
+                setclass = "tbl_df")
+
+class_worse <- import(here("data", "class_worse_proposal.xlsx"),
+                      setclass = "tbl_df")
+
+class_stress <- import(here("data", "class_stress_proposal.xlsx"),
+                       setclass = "tbl_df")
+
+pcss <- import(here("data", "pcss_proposal.xlsx"),
+               setclass = "tbl_df")
+
+hit <- import(here("data", "hit_proposal.xlsx"),
+              setclass = "tbl_df")
+```
+
+# Experimental Phase Repeated Measures
+
+Column {.tabset data-width=500}
+-----------------------------------------------------------------------
+
+### Participant 1 Frequency
+
+```{r p1 frequency, include=FALSE}
+head(p1)
+
+p1_freq <- p1 %>% 
+  select(session, use)
+
+p1_freq_plot <- ggplot(p1_freq, aes(session, use)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(limits = c(6, 13),
+                     breaks = c(6, 7, 8, 9, 10, 11, 12, 13)) +
+  scale_y_continuous(limits = c(0, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
+  theme_classic() +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10)) +
+  labs(x = "Session",
+       y = "Number of Days Reported Using Strategy",
+       title = "Weekly Use of Metacognitive Strategy \nto Improve School Attendance") 
+
+p1_freq_plot
+
+```
+
+```{r p1 frequency plot, include=TRUE}
+p1_freq_plot
+```
+
+### Participant 2 Frequency
+```{r p2 frequency, include=FALSE}
+head(p2)
+
+p2_freq <- p2 %>% 
+  select(session, use)
+
+p2_freq_plot <- ggplot(p2_freq, aes(session, use)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(limits = c(7, 13),
+                     breaks = c(7, 8, 9, 10, 11, 12, 13)) +
+  scale_y_continuous(limits = c(0, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
+  theme_classic() +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10)) +
+  labs(x = "Session",
+       y = "Number of Days Per Week",
+       title = "Weekly Use of External Aid\n to Track Assignments and Due Dates") 
+
+p2_freq_plot
+```
+
+```{r p2 frequency plot, include=TRUE}
+p2_freq_plot
+```
+
+### Participant 3 Frequency
+```{r p3 frequency, include=FALSE}
+head(p3)
+
+p3_freq <- p3 %>% 
+  select(session, use)
+
+p3_freq_plot <- ggplot(p3_freq, aes(session, use)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(limits = c(8, 13),
+                     breaks = c(8, 9, 10, 11, 12, 13)) +
+  scale_y_continuous(limits = c(0, 10),
+                     breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) +
+  theme_classic() +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10)) +
+  labs(x = "Session",
+       y = "Number of Times Per Week Strategy was Used in Class",
+       title = "Weekly Use of Attention Strategy\n to Remain Focused in Biology Class") 
+
+p3_freq_plot
+```
+
+```{r p3 frequency plot, include=TRUE}
+p3_freq_plot
+```
+
+### Participant 4 Effort
+```{r p4 effort, include=FALSE}
+head(p4)
+
+p4_effort <- p4 %>% 
+  select(session, effort)
+
+p4_effort_plot <- ggplot(p4_effort, aes(session, effort)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(limits = c(9, 13),
+                     breaks = c(9, 10, 11, 12, 13)) +
+  scale_y_continuous(limits = c(0, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
+  theme_classic() +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10)) +
+  labs(x = "Session",
+       y = "Perceived Effort",
+       title = "Perceived Effort While Reading",
+       caption = "1 = No Effort\n 2 = A little Effort\n 3 = Somewhat Effortful\n 4 = Quite Effortful\n 5 = Extremely Effortful") 
+
+p4_effort_plot
+```
+
+```{r p4 effort plot, include=TRUE}
+p4_effort_plot
+```
+
+Column {.tabset data-width=500}
+-----------------------------------------------------------------------
+
+### Participant 1 Helpfulness
+
+```{r p1 helpfulness, include=FALSE}
+p1_help <- p1 %>% 
+  select(session, help)
+
+p1_help_plot <- ggplot(p1_help, aes(session, help)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(limits = c(6, 13),
+                     breaks = c(6, 7, 8, 9, 10, 11, 12, 13)) +
+  scale_y_continuous(limits = c(0, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
+  theme_classic() +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10)) +
+  labs(x = "Session",
+       y = "Perceived Helpfulness",
+       title = "Perceived Helpfulness\n of Metacognitive Strategy",
+       caption = "1 = Not Helpful at All\n 2 = Not Helpful\n 3 = Somewhat Helpful\n 4 = Helpful\n 5 = Very Helpful") 
+
+p1_help_plot
+```
+
+```{r p1 helpfulness plot, include=TRUE}
+p1_help_plot
+```
+
+### Participant 2 Helpfulness
+```{r p2 helpfulness, include=FALSE}
+p2_help <- p2 %>% 
+  select(session, help)
+
+p2_help_plot <- ggplot(p2_help, aes(session, help)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(limits = c(7, 13),
+                     breaks = c(7, 8, 9, 10, 11, 12, 13)) +
+  scale_y_continuous(limits = c(0, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
+  theme_classic() +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10)) +
+  labs(x = "Session",
+       y = "Perceived Helpfulness",
+       title = "Perceived Helpfulness of External Aid",
+       caption = "1 = Not Helpful at All\n 2 = Not Helpful\n 3 = Somewhat Helpful\n 4 = Helpful\n 5 = Very Helpful") 
+
+p2_help_plot
+```
+
+```{r p2 helpfulness plot, include=TRUE}
+p2_help_plot
+```
+
+### Participant 3 Helpfulness
+```{r p3 helpfulness, include=FALSE}
+p3_help <- p3 %>% 
+  select(session, help)
+
+p3_help_plot <- ggplot(p3_help, aes(session, help)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(limits = c(8, 13),
+                     breaks = c(8, 9, 10, 11, 12, 13)) +
+  scale_y_continuous(limits = c(0, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
+  theme_classic() +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10)) +
+  labs(x = "Session",
+       y = "Perceived Helpfulness",
+       title = "Perceived Helpfulness of Attention Strategy",
+       caption = "1 = Not Helpful at All\n 2 = Not Helpful\n 3 = Somewhat Helpful\n 4 = Helpful\n 5 = Very Helpful") 
+
+p3_help_plot
+```
+
+```{r p3 helpfulness plot, include=TRUE}
+p3_help_plot
+```
+
+### Participant 4 Helpfulness
+```{r p4 helpfulness, include=FALSE}
+p4_help <- p4 %>% 
+  select(session, help)
+
+p4_help_plot <- ggplot(p4_help, aes(session, help)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(limits = c(9, 13),
+                     breaks = c(9, 10, 11, 12, 13)) +
+  scale_y_continuous(limits = c(0, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
+  theme_classic() +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10)) +
+  labs(x = "Session",
+       y = "Perceived Helpfulness",
+       title = "Perceived Helpfulness of Reading Strategies",
+       caption = "1 = Not Helpful at All\n 2 = Not Helpful\n 3 = Somewhat Helpful\n 4 = Helpful\n 5 = Very Helpful") 
+
+p4_help_plot
+```
+
+```{r p4 helpfulness plot, include=TRUE}
+p4_help_plot
+```
+
+# Pre-Post Outcome Measures
+Column {.tabset data-width=1000}
+-----------------------------------------------------------------------
+
+### BRIEF
+```{r brief, include=FALSE}
+head(brief)
+
+brief_x <- c("Plan-Organize Post-Parent",
+             "Plan-Organize Pre-Parent",
+             "CRI Post-Self",
+             "CRI Pre-Self",
+             "Task Completion Post-Self",
+             "Task Completion Pre-Self",
+             "Working Memory Post-Self",
+             "Working Memory Pre-Self")
+             
+
+brief_plot <- ggplot(brief, aes(measure, score)) +
+  geom_hline(yintercept = 65, 
+             linetype = "dashed",
+             size = 1) +
+  geom_col(fill = "blue", 
+           alpha = 0.7) +
+  coord_flip() +
+  scale_x_discrete(limits = brief_x) +
+  scale_y_continuous(limits = c(0, 100),
+                     breaks = c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)) +
+  geom_text(aes(measure, score, label = score),
+            nudge_y = -6,
+            color = "white") +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_line(color = "gray80")) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(color = "black", size = 5, face = "bold"),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10),
+        plot.caption = element_text(size = 10)) +
+  labs(x = "",
+       y = "T-score",
+       title = "BRIEF Scores",
+       subtitle = "Self-Report Working Memory & Task Completion Scales\nSelf-Report CRI\nParent-Report Plan-Organize Scale",
+       caption = "T-scores Above 65 are Clinically Significant") 
+
+brief_plot
+```
+
+```{r brief plot, include=TRUE}
+brief_plot
+```
+
+### CLASS 1
+```{r class tidy, include=FALSE}
+head(class_worse)
+head(class_stress)
+
+class_worse_tidy <- class_worse %>% 
+  pivot_longer(
+    cols = c(`Pre-Test`, `Post-Test`),
+    names_to = "Assessment",
+    values_to = "Response"
+  )
+
+class_1 <- c("Easily bothered by lights/screens or noise",
+             "Tiring easily during homework",
+             "Tiring easily during the school day",
+             "Headaches interfering with homework",
+             "Headaches interfering with classwork",
+             "Easily distracted during homework",
+             "Easily distracted during classwork",
+             "Trouble reading",
+             "Trouble remembering what was studied",
+             "Difficulty studying for tests or quizzes",
+             "Homework taking longer",
+             "In class, work taking longer",
+             "Difficulty understanding new material",
+             "Difficulty taking notes")
+
+class_1_resp <- c("A lot worse",
+                  "Somewhat worse",
+                  "A little worse",
+                  "Not worse")
+
+class_worse_tidy$Assessment <- factor(class_worse_tidy$Assessment, levels = c("Pre-Test", "Post-Test"))
+
+class_worse_plot <- ggplot(class_worse_tidy, aes(`Question`, `Response`)) +
+  geom_line(aes(group = `Question`), color = "gray40") +
+  geom_point(aes(color = `Assessment`)) +
+  coord_flip() +
+  scale_x_discrete(limits = class_1) +
+  scale_y_discrete(limits = class_1_resp) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_line(color = "gray80")) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(color = "black", size = 10, face = "bold"),
+        axis.text.x = element_text(size = 10, angle = 90),
+        axis.text.y = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10),
+        plot.caption = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 8)) +
+  labs(x = "",
+       y = "",
+    title = "CLASS Responses",
+       subtitle = "Questions 1-14")
+
+class_worse_plot
+
+head(class_stress)
+
+class_stress_tidy <- class_stress %>% 
+  pivot_longer(
+    cols = c(`Pre-Test`, `Post-Test`),
+    names_to = "Assessment",
+    values_to = "Response"
+  )
+
+class_2 <- c("Stressed out about your grades dropping",
+             "More stressed out/overwhelmed with the schoolwork piling up",
+             "Not having enough support at home from parents/siblings",
+             "Not having enough support from teachers",
+             "Not being allowed to play sports/recreation",
+             "Missing time with friends and/or social activities")
+
+class_2_resp <- c("Very stressful",
+                  "Moderately stressful",
+                  "A little stressful",
+                  "Not stressful")
+
+class_stress_tidy$Assessment <- factor(class_stress_tidy$Assessment, levels = c("Pre-Test", "Post-Test"))
+
+class_stress_plot <- ggplot(class_stress_tidy, aes(`Question`, `Response`)) +
+  geom_line(aes(group = `Question`), color = "gray40") +
+  geom_point(aes(color = `Assessment`)) +
+  coord_flip() +
+  scale_x_discrete(limits = class_2) +
+  scale_y_discrete(limits = class_2_resp) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_line(color = "gray80")) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(color = "black", size = 10, face = "bold"),
+        axis.text.x = element_text(size = 8, angle = 90),
+        axis.text.y = element_text(size = 8),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10),
+        plot.caption = element_text(size = 10),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 8)) +
+  labs(x = "",
+       y = "",
+    title = "CLASS Responses",
+       subtitle = "Questions 15-20")
+
+class_stress_plot
+```
+
+```{r class plot 1, include=TRUE}
+class_worse_plot
+```
+
+### CLASS 2
+```{r class plot 2, include=TRUE}
+class_stress_plot
+```
+
+### PCSS
+```{r pcss data, include=FALSE}
+head(pcss)
+
+pcss_table <- pcss %>% 
+  reactable(
+    columns = list(
+      `Pre Test` = colDef(name = "Pre-Test"),
+      `Post Test` = colDef(name = "Post-Test")
+    ))
+
+```
+
+```{r pcss table, include=TRUE}
+pcss_table
+```
+
+### HIT
+```{r hit data, include=FALSE}
+head(hit)
+
+hit_positions <- c("Pre-Test", "Post-Test")
+
+hit_plot <- ggplot(hit, aes(measure, score)) +
+  geom_hline(yintercept = 50, 
+             linetype = "dashed",
+             size = 1) +
+  geom_col(fill = "blue", 
+           alpha = 0.7) +
+  scale_x_discrete(limits = hit_positions) +
+  scale_y_continuous(limits = c(0, 60),
+                     breaks = c(10, 20, 30, 40, 50, 60)) + 
+  geom_text(aes(measure, score, label = score),
+            nudge_y = -3,
+            color = "white") +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_line(color = "gray80")) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10),
+        plot.caption = element_text(size = 8)) +
+  labs(x = "",
+       y = "Score",
+       title = "HIT Results",
+       caption = "Scores of 50 or Greater Suggest Headaches Impact Daily Functioning") 
+
+hit_plot
+```
+
+```{r hit plot, include=TRUE}
+hit_plot
+```
