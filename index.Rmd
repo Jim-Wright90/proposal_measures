@@ -481,6 +481,25 @@ class_stress_plot
 head(pcss)
 
 
+#pcss_table <- pcss %>% 
+  #reactable(
+    #columns = list(
+      #`Pre Test` = colDef(name = "Pre-Test"),
+      #`Pre Test` = colDef(style = function(value) {
+       # if (value >= 4) {
+         # color <- "red"
+        #} else if (value <= 3) {
+          #color <- "green"
+       # }
+         #list(color = color, fontWeight = "bold")
+      #}),
+      #`Post Test` = colDef(name = "Post-Test")),
+   # pagination = FALSE,
+   # highlight = TRUE,
+   # bordered = TRUE,
+   # height = 600,
+   # width = 500)
+
 pcss_table <- pcss %>% 
   reactable(
     columns = list(
@@ -489,9 +508,9 @@ pcss_table <- pcss %>%
     pagination = FALSE,
     highlight = TRUE,
     bordered = TRUE,
+    searchable = TRUE,
     height = 600,
     width = 500)
-
 ```
 
 ```{r pcss table, include=TRUE}
