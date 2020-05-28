@@ -513,7 +513,7 @@ pcss_table <- pcss %>%
     width = 500)
 ```
 
-```{r pcss table, include=TRUE}
+```{r pcss table, include=TRUE, fig.height=8}
 pcss_table
 ```
 
