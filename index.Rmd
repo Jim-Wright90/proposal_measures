@@ -358,13 +358,14 @@ brief_self_plot <- ggplot(brief_self_tidy, aes(`Scale/Index`, `Response`)) +
         panel.grid.major.x = element_line(color = "gray80")) +
   theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
         plot.subtitle = element_text(color = "black", size = 10, face = "bold"),
-        axis.text.x = element_text(size = 8),
-        axis.text.y = element_text(size = 8),
+        axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
         axis.title=element_text(size=10),
         strip.text = element_text(size = 10),
         plot.caption = element_text(size = 10),
-        legend.title = element_text(size = 8),
-        legend.text = element_text(size = 8)) +
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10),
+        legend.position = "bottom") +
   labs(x = "",
        y = "",
     title = "BRIEF-2 Self-Report",
@@ -395,13 +396,14 @@ brief_parent_plot <- ggplot(brief_parent_tidy, aes(`Scale/Index`, `Response`)) +
         panel.grid.major.x = element_line(color = "gray80")) +
   theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
         plot.subtitle = element_text(color = "black", size = 10, face = "bold"),
-        axis.text.x = element_text(size = 8),
-        axis.text.y = element_text(size = 8),
+        axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
         axis.title=element_text(size=10),
         strip.text = element_text(size = 10),
         plot.caption = element_text(size = 10),
-        legend.title = element_text(size = 8),
-        legend.text = element_text(size = 8)) +
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10),
+        legend.position = "bottom") +
   labs(x = "",
        y = "",
     title = "BRIEF-2 Parent-Report",
@@ -469,8 +471,9 @@ class_worse_plot <- ggplot(class_worse_tidy, aes(`Question`, `Response`)) +
         axis.title=element_text(size=10),
         strip.text = element_text(size = 10),
         plot.caption = element_text(size = 10),
-        legend.title = element_text(size = 10),
-        legend.text = element_text(size = 8)) +
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10),
+        legend.position = "bottom") +
   labs(x = "",
        y = "",
     title = "CLASS Responses",
@@ -512,13 +515,14 @@ class_stress_plot <- ggplot(class_stress_tidy, aes(`Question`, `Response`)) +
         panel.grid.major.x = element_line(color = "gray80")) +
   theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
         plot.subtitle = element_text(color = "black", size = 10, face = "bold"),
-        axis.text.x = element_text(size = 8, angle = 90),
-        axis.text.y = element_text(size = 8),
+        axis.text.x = element_text(size = 10, angle = 90),
+        axis.text.y = element_text(size = 10),
         axis.title=element_text(size=10),
         strip.text = element_text(size = 10),
         plot.caption = element_text(size = 10),
-        legend.title = element_text(size = 8),
-        legend.text = element_text(size = 8)) +
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10),
+        legend.position = "bottom") +
   labs(x = "",
        y = "",
     title = "CLASS Responses",
