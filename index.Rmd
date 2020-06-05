@@ -42,8 +42,11 @@ p3 <- import(here("data", "p3_rm.xlsx"),
 p4 <- import(here("data", "p4_rm.xlsx"),
                setclass = "tbl_df") 
 
-brief <- import(here("data", "brief_proposal.xlsx"),
-                setclass = "tbl_df")
+brief_self <- import(here("data", "brief_self.xlsx"),
+               setclass = "tbl_df") 
+
+brief_parent <- import(here("data", "brief_parent.xlsx"),
+               setclass = "tbl_df") 
 
 class_worse <- import(here("data", "class_worse_proposal.xlsx"),
                       setclass = "tbl_df")
@@ -56,6 +59,8 @@ pcss <- import(here("data", "pcss_proposal.xlsx"),
 
 hit <- import(here("data", "hit_proposal.xlsx"),
               setclass = "tbl_df")
+
+
 ```
 
 # Experimental Phase Repeated Measures
@@ -310,53 +315,108 @@ p4_help_plot
 Column {.tabset data-width=1000}
 -----------------------------------------------------------------------
 
-### BRIEF-2
+### BRIEF-2 Self-Report 
 ```{r brief, include=FALSE}
-head(brief)
+head(brief_parent)
+head(brief_self)
 
-brief_x <- c("Plan-Organize Post-Parent",
-             "Plan-Organize Pre-Parent",
-             "CRI Post-Self",
-             "CRI Pre-Self",
-             "Task Completion Post-Self",
-             "Task Completion Pre-Self",
-             "Working Memory Post-Self",
-             "Working Memory Pre-Self")
-             
+brief_self_tidy <- brief_self %>% 
+  pivot_longer(
+    cols = c(`Pre-Test`, `Post-Test`),
+    names_to = "Assessment",
+    values_to = "Response"
+  )
 
-brief_plot <- ggplot(brief, aes(measure, score)) +
-  geom_hline(yintercept = 65, 
-             linetype = "dashed",
-             size = 1) +
-  geom_col(fill = "blue", 
-           alpha = 0.7) +
+head(brief_self_tidy)
+
+brief_scales <- c("Global Executive Composite",
+                  "Cognitive Regulation Index",
+                  "Organization Scale",
+                  "Task Completion Scale",
+                  "Plan/Organize Scale",
+                  "Working Memory Scale",
+                  "Initiate Scale",
+                  "Emotional Regulation Index",
+                  "Emotional Control Scale",
+                  "Shift Scale",
+                  "Behavior Regulation Index",
+                  "Self-Monitor Scale",
+                  "Inhibit Scale")
+
+brief_self_tidy$Assessment <- factor(brief_self_tidy$Assessment, levels = c("Pre-Test", "Post-Test"))
+
+brief_self_plot <- ggplot(brief_self_tidy, aes(`Scale/Index`, `Response`)) +
+  geom_line(aes(group = `Scale/Index`), color = "gray40") +
+  geom_point(aes(color = `Assessment`)) +
   coord_flip() +
-  scale_x_discrete(limits = brief_x) +
-  scale_y_continuous(limits = c(0, 100),
-                     breaks = c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)) +
-  geom_text(aes(measure, score, label = score),
-            nudge_y = -6,
-            color = "white") +
+  scale_x_discrete(limits = brief_scales) +
+  scale_y_continuous(limits = c(30, 90),
+                     breaks = c(30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90)) +
+  geom_text_repel(aes(label = `Response`)) +
   theme(panel.grid.major.y = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.x = element_line(color = "gray80")) +
   theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
-        plot.subtitle = element_text(color = "black", size = 8, face = "bold"),
-        axis.text = element_text(size = 10),
+        plot.subtitle = element_text(color = "black", size = 10, face = "bold"),
+        axis.text.x = element_text(size = 8),
+        axis.text.y = element_text(size = 8),
         axis.title=element_text(size=10),
         strip.text = element_text(size = 10),
-        plot.caption = element_text(size = 10)) +
+        plot.caption = element_text(size = 10),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 8)) +
   labs(x = "",
-       y = "T-score",
-       title = "BRIEF-2 Scores",
-       subtitle = "Self-Report Working Memory & Task Completion Scales\nSelf-Report CRI\nParent-Report Plan-Organize Scale",
-       caption = "T-scores Above 65 are Clinically Significant") 
+       y = "",
+    title = "BRIEF-2 Self-Report",
+    subtitle = "Scores Greater than 65 are Considered Clinically Significant")
 
-brief_plot
+brief_self_plot
+
+
+brief_parent_tidy <- brief_parent %>% 
+  pivot_longer(
+    cols = c(`Pre-Test`, `Post-Test`),
+    names_to = "Assessment",
+    values_to = "Response"
+  )
+
+brief_parent_tidy$Assessment <- factor(brief_parent_tidy$Assessment, levels = c("Pre-Test", "Post-Test"))
+
+brief_parent_plot <- ggplot(brief_parent_tidy, aes(`Scale/Index`, `Response`)) +
+  geom_line(aes(group = `Scale/Index`), color = "gray40") +
+  geom_point(aes(color = `Assessment`)) +
+  coord_flip() +
+  scale_x_discrete(limits = brief_scales) +
+  scale_y_continuous(limits = c(30, 90),
+                     breaks = c(30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90)) +
+  geom_text_repel(aes(label = `Response`)) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_line(color = "gray80")) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(color = "black", size = 10, face = "bold"),
+        axis.text.x = element_text(size = 8),
+        axis.text.y = element_text(size = 8),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10),
+        plot.caption = element_text(size = 10),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 8)) +
+  labs(x = "",
+       y = "",
+    title = "BRIEF-2 Parent-Report",
+    subtitle = "Scores Greater than 65 are Considered Clinically Significant")
+
+brief_parent_plot
 ```
 
-```{r brief plot, include=TRUE, fig.width=8}
-brief_plot
+```{r brief self, include=TRUE, fig.width=10}
+brief_self_plot
+```
+
+### BRIEF Parent-Report
+```{r brief parent, include=TRUE, fig.width=10}
+brief_parent_plot
 ```
 
 ### CLASS 1
