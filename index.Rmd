@@ -42,6 +42,9 @@ p3 <- import(here("data", "p3_rm.xlsx"),
 p4 <- import(here("data", "p4_rm.xlsx"),
                setclass = "tbl_df") 
 
+psychoeducation <- import(here("data", "p5_rm.xlsx"),
+               setclass = "tbl_df") 
+
 brief_self <- import(here("data", "brief_self.xlsx"),
                setclass = "tbl_df") 
 
@@ -63,7 +66,42 @@ hit <- import(here("data", "hit_proposal.xlsx"),
 
 ```
 
-# Experimental Phase Repeated Measures
+
+# Baseline Phase Psychoeducation Measurement
+Column {data-width=1000}
+-----------------------------------------------------------------------
+
+### Participant Example with 5 Baseline Sessions 
+
+```{r p5 psychoeducation, include=FALSE}
+head(psychoeducation)
+
+psychoeducation_plot <- ggplot(psychoeducation, aes(session, pe)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(limits = c(1, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
+  scale_y_continuous(limits = c(0, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
+  theme_classic() +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
+        axis.text = element_text(size = 10),
+        axis.title=element_text(size=10),
+        strip.text = element_text(size = 10)) +
+  labs(x = "Session",
+       y = "Level of Agreement",
+       title = "Participant Agreement on Ability\n to Teach Back Delivered Psychoeducation",
+       caption = "1 = Strongly disagree\n 2 = Disagree\n 3 = Neutral\n 4 = Agree\n 5 = Strongly agree") 
+
+psychoeducation_plot
+
+```
+
+```{r p1 psychoeducation plot, include=TRUE}
+psychoeducation_plot
+```
+
+# Experimental Phase Repeated Measurements
 
 Column {.tabset data-width=500}
 -----------------------------------------------------------------------
@@ -164,10 +202,10 @@ p3_freq_plot
 ```{r p4 effort, include=FALSE}
 head(p4)
 
-p4_effort <- p4 %>% 
-  select(session, effort)
+p4_motivation <- p4 %>% 
+  select(session, motivation)
 
-p4_effort_plot <- ggplot(p4_effort, aes(session, effort)) +
+p4_motivation_plot <- ggplot(p4_motivation, aes(session, motivation)) +
   geom_line() +
   geom_point(size = 2) +
   scale_x_continuous(limits = c(9, 13),
@@ -180,15 +218,15 @@ p4_effort_plot <- ggplot(p4_effort, aes(session, effort)) +
         axis.title=element_text(size=10),
         strip.text = element_text(size = 10)) +
   labs(x = "Session",
-       y = "Perceived Effort",
-       title = "Perceived Effort While Reading",
-       caption = "1 = No Effort\n 2 = A little Effort\n 3 = Somewhat Effortful\n 4 = Quite Effortful\n 5 = Extremely Effortful") 
+       y = "Perceived Level of Motivation",
+       title = "Perceived Motivation While Reading",
+       caption = "1 = No Motivation\n 2 = A little Motivation\n 3 = Neutral\n 4 = Motivated\n 5 = Very Motivated") 
 
-p4_effort_plot
+p4_motivation_plot
 ```
 
 ```{r p4 effort plot, include=TRUE}
-p4_effort_plot
+p4_motivation_plot
 ```
 
 Column {.tabset data-width=500}
@@ -311,7 +349,7 @@ p4_help_plot
 p4_help_plot
 ```
 
-# Pre-Post Outcome Measures
+# Pre-Post Outcome Measurements
 Column {.tabset data-width=1000}
 -----------------------------------------------------------------------
 
