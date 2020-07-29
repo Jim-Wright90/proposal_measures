@@ -117,15 +117,12 @@ p1_freq <- p1 %>%
 p1_freq_plot <- ggplot(p1_freq, aes(session, use)) +
   geom_line() +
   geom_point(size = 2) +
-  scale_x_continuous(limits = c(6, 13),
-                     breaks = c(6, 7, 8, 9, 10, 11, 12, 13)) +
+  scale_x_continuous(limits = c(4, 6),
+                     breaks = c(4, 5, 6)) +
   scale_y_continuous(limits = c(0, 5),
                      breaks = c(1, 2, 3, 4, 5)) +
   theme_classic() +
-  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
-        axis.text = element_text(size = 10),
-        axis.title=element_text(size=10),
-        strip.text = element_text(size = 10)) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5)) +
   labs(x = "Session",
        y = "Number of Days Reported Using Strategy",
        title = "Weekly Use of Metacognitive Strategy \nto Improve School Attendance") 
@@ -138,34 +135,33 @@ p1_freq_plot
 p1_freq_plot
 ```
 
-### Participant 2 Frequency
-```{r p2 frequency, include=FALSE}
+### Participant 2 Motivation
+```{r p2 motivation, include=FALSE}
 head(p2)
 
-p2_freq <- p2 %>% 
-  select(session, use)
+p2_motivation <- p2 %>% 
+  select(session, motivation)
 
-p2_freq_plot <- ggplot(p2_freq, aes(session, use)) +
+p2_motivation_plot <- ggplot(p2_motivation, aes(session, motivation)) +
   geom_line() +
   geom_point(size = 2) +
-  scale_x_continuous(limits = c(7, 13),
-                     breaks = c(7, 8, 9, 10, 11, 12, 13)) +
+  scale_x_continuous(limits = c(7, 12),
+                     breaks = c(7, 8, 9, 10, 11, 12)) +
   scale_y_continuous(limits = c(0, 5),
                      breaks = c(1, 2, 3, 4, 5)) +
   theme_classic() +
-  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
-        axis.text = element_text(size = 10),
-        axis.title=element_text(size=10),
-        strip.text = element_text(size = 10)) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5)) +
   labs(x = "Session",
-       y = "Number of Days Per Week",
-       title = "Weekly Use of External Aid\n to Track Assignments and Due Dates") 
+       y = "Perceived Level of Motivation",
+       title = "Perceived Motivation While Reading",
+       caption = "1 = No Motivation\n 2 = A little Motivation\n 3 = Neutral\n 4 = Motivated\n 5 = Very Motivated") 
 
-p2_freq_plot
+
+p2_motivation_plot
 ```
 
-```{r p2 frequency plot, include=TRUE}
-p2_freq_plot
+```{r p2 motivation plot, include=TRUE}
+p2_motivation_plot
 ```
 
 ### Participant 3 Frequency
@@ -178,18 +174,15 @@ p3_freq <- p3 %>%
 p3_freq_plot <- ggplot(p3_freq, aes(session, use)) +
   geom_line() +
   geom_point(size = 2) +
-  scale_x_continuous(limits = c(8, 13),
-                     breaks = c(8, 9, 10, 11, 12, 13)) +
-  scale_y_continuous(limits = c(0, 10),
-                     breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) +
+  scale_x_continuous(limits = c(5, 8),
+                     breaks = c(5, 6, 7, 8)) +
+  scale_y_continuous(limits = c(0, 5),
+                     breaks = c(1, 2, 3, 4, 5)) +
   theme_classic() +
-  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
-        axis.text = element_text(size = 10),
-        axis.title=element_text(size=10),
-        strip.text = element_text(size = 10)) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5)) +
   labs(x = "Session",
-       y = "Number of Times Per Week Strategy was Used in Class",
-       title = "Weekly Use of Attention Strategy\n to Remain Focused in Biology Class") 
+       y = "Number of Days Per Week",
+       title = "Weekly Use of External Aid\n to Track Assignments and Due Dates") 
 
 p3_freq_plot
 ```
@@ -198,35 +191,31 @@ p3_freq_plot
 p3_freq_plot
 ```
 
-### Participant 4 Effort
+### Participant 4 Frequency
 ```{r p4 effort, include=FALSE}
 head(p4)
 
-p4_motivation <- p4 %>% 
-  select(session, motivation)
+p4_freq <- p4 %>% 
+  select(session, use)
 
-p4_motivation_plot <- ggplot(p4_motivation, aes(session, motivation)) +
+p4_freq_plot <- ggplot(p4_freq, aes(session, use)) +
   geom_line() +
   geom_point(size = 2) +
-  scale_x_continuous(limits = c(9, 13),
-                     breaks = c(9, 10, 11, 12, 13)) +
-  scale_y_continuous(limits = c(0, 5),
-                     breaks = c(1, 2, 3, 4, 5)) +
+  scale_x_continuous(limits = c(6, 10),
+                     breaks = c(6, 7, 8, 9, 10)) +
+  scale_y_continuous(limits = c(0, 10),
+                     breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) +
   theme_classic() +
-  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
-        axis.text = element_text(size = 10),
-        axis.title=element_text(size=10),
-        strip.text = element_text(size = 10)) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5)) +
   labs(x = "Session",
-       y = "Perceived Level of Motivation",
-       title = "Perceived Motivation While Reading",
-       caption = "1 = No Motivation\n 2 = A little Motivation\n 3 = Neutral\n 4 = Motivated\n 5 = Very Motivated") 
+       y = "Number of Times per Week Strategy was Used in Class",
+       title = "Weekly Use of Attention Strategy\n to Remain Focused in Biology Class") 
 
-p4_motivation_plot
+p4_freq_plot
 ```
 
-```{r p4 effort plot, include=TRUE}
-p4_motivation_plot
+```{r p4 frequency plot, include=TRUE}
+p4_freq_plot
 ```
 
 Column {.tabset data-width=500}
@@ -241,15 +230,12 @@ p1_help <- p1 %>%
 p1_help_plot <- ggplot(p1_help, aes(session, help)) +
   geom_line() +
   geom_point(size = 2) +
-  scale_x_continuous(limits = c(6, 13),
-                     breaks = c(6, 7, 8, 9, 10, 11, 12, 13)) +
+  scale_x_continuous(limits = c(4, 6),
+                     breaks = c(4, 5, 6)) +
   scale_y_continuous(limits = c(0, 5),
                      breaks = c(1, 2, 3, 4, 5)) +
   theme_classic() +
-  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
-        axis.text = element_text(size = 10),
-        axis.title=element_text(size=10),
-        strip.text = element_text(size = 10)) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5)) +
   labs(x = "Session",
        y = "Perceived Helpfulness",
        title = "Perceived Helpfulness\n of Metacognitive Strategy",
@@ -270,18 +256,15 @@ p2_help <- p2 %>%
 p2_help_plot <- ggplot(p2_help, aes(session, help)) +
   geom_line() +
   geom_point(size = 2) +
-  scale_x_continuous(limits = c(7, 13),
-                     breaks = c(7, 8, 9, 10, 11, 12, 13)) +
+  scale_x_continuous(limits = c(7, 12),
+                     breaks = c(7, 8, 9, 10, 11, 12)) +
   scale_y_continuous(limits = c(0, 5),
                      breaks = c(1, 2, 3, 4, 5)) +
   theme_classic() +
-  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
-        axis.text = element_text(size = 10),
-        axis.title=element_text(size=10),
-        strip.text = element_text(size = 10)) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5)) +
   labs(x = "Session",
        y = "Perceived Helpfulness",
-       title = "Perceived Helpfulness of External Aid",
+       title = "Perceived Helpfulness of Reading Strategies",
        caption = "1 = Not Helpful at All\n 2 = Not Helpful\n 3 = Somewhat Helpful\n 4 = Helpful\n 5 = Very Helpful") 
 
 p2_help_plot
@@ -299,18 +282,15 @@ p3_help <- p3 %>%
 p3_help_plot <- ggplot(p3_help, aes(session, help)) +
   geom_line() +
   geom_point(size = 2) +
-  scale_x_continuous(limits = c(8, 13),
-                     breaks = c(8, 9, 10, 11, 12, 13)) +
+  scale_x_continuous(limits = c(5, 8),
+                     breaks = c(5, 6, 7, 8)) +
   scale_y_continuous(limits = c(0, 5),
                      breaks = c(1, 2, 3, 4, 5)) +
   theme_classic() +
-  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5),
-        axis.text = element_text(size = 10),
-        axis.title=element_text(size=10),
-        strip.text = element_text(size = 10)) +
+  theme(plot.title = element_text(color = "black", size = 12, face = "bold", hjust = 0.5)) +
   labs(x = "Session",
        y = "Perceived Helpfulness",
-       title = "Perceived Helpfulness of Attention Strategy",
+       title = "Perceived Helpfulness of External Aid",
        caption = "1 = Not Helpful at All\n 2 = Not Helpful\n 3 = Somewhat Helpful\n 4 = Helpful\n 5 = Very Helpful") 
 
 p3_help_plot
@@ -328,8 +308,8 @@ p4_help <- p4 %>%
 p4_help_plot <- ggplot(p4_help, aes(session, help)) +
   geom_line() +
   geom_point(size = 2) +
-  scale_x_continuous(limits = c(9, 13),
-                     breaks = c(9, 10, 11, 12, 13)) +
+  scale_x_continuous(limits = c(6, 10),
+                     breaks = c(6, 7, 8, 9, 10)) +
   scale_y_continuous(limits = c(0, 5),
                      breaks = c(1, 2, 3, 4, 5)) +
   theme_classic() +
@@ -339,7 +319,7 @@ p4_help_plot <- ggplot(p4_help, aes(session, help)) +
         strip.text = element_text(size = 10)) +
   labs(x = "Session",
        y = "Perceived Helpfulness",
-       title = "Perceived Helpfulness of Reading Strategies",
+       title = "Perceived Helpfulness of Attention Strategy",
        caption = "1 = Not Helpful at All\n 2 = Not Helpful\n 3 = Somewhat Helpful\n 4 = Helpful\n 5 = Very Helpful") 
 
 p4_help_plot
